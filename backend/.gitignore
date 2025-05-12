@@ -1,0 +1,20 @@
+# バーチャル環境
+.venv/
+venv/
+
+# Pythonキャッシュ
+__pycache__/
+*.py[cod]
+
+# Jupyterなど
+.ipynb_checkpoints/
+
+# Mac特有のファイル
+.DS_Store
+
+# 環境設定ファイル
+.env
+backend/.env
+
+# 出力されたデータ（ワードクラウド画像など）
+data/

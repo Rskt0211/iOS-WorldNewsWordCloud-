@@ -1,0 +1,5 @@
+# requirements.txt
+requests
+wordcloud
+matplotlib
+python-dotenv

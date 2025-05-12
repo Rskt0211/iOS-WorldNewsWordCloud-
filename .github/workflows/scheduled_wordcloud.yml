@@ -1,0 +1,42 @@
+name: Scheduled WordCloud Generation
+
+on:
+  schedule:
+    - cron: '0 21 * * *' # JST 6:00 = UTC 21:00 前日
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    env:
+      NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install -r backend/requirements.txt
+
+      - name: Generate WordCloud
+        run: |
+          python backend/generate_wordcloud.py
+
+      - name: Copy to docs/static
+        run: |
+          TODAY=$(date +'%Y%m%d')
+          mkdir -p docs/static/$TODAY
+          cp backend/data/$TODAY/wordcloud.png docs/static/$TODAY/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
