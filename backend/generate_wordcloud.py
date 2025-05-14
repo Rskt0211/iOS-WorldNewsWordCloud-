@@ -31,7 +31,7 @@ def generate_wordcloud():
     wordcloud = WordCloud(width=800, height=400, background_color='white', font_path=None).generate(text_data)
 
     today = datetime.now().strftime("%Y%m%d")
-    output_dir = f"data/{today}"
+    output_dir = os.path.join("backend", "data", today)  # ← ここを修正
     os.makedirs(output_dir, exist_ok=True)
     output_path = os.path.join(output_dir, "wordcloud.png")
     wordcloud.to_file(output_path)
