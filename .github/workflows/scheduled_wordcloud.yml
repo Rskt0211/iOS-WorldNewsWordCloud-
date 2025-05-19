@@ -26,7 +26,7 @@ jobs:
 
       - name: Generate WordCloud
         run: |
-          python backend/generate_wordcloud.py
+          python -u backend/generate_wordcloud.py
 
       - name: Copy to docs/static
         run: |
