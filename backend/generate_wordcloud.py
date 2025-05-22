@@ -4,6 +4,12 @@ def generate_wordcloud():
     import matplotlib.pyplot as plt
     import os
     from datetime import datetime
+    import sys
+
+    # ログをファイルに書き出す設定
+    log_file = open('log.txt', 'w', encoding='utf-8')
+    sys.stdout = log_file
+    sys.stderr = log_file
 
     print("🚀 generate_wordcloud.py が開始されました")
 
@@ -59,3 +65,6 @@ def generate_wordcloud():
         return
 
     print("🎉 generate_wordcloud.py の処理が完了しました")
+
+    # ログファイルを閉じる
+    log_file.close()
