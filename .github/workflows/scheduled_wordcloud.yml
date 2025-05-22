@@ -2,7 +2,7 @@ name: Scheduled WordCloud Generation
 
 on:
   schedule:
-    - cron: '0 21 * * *' # JST 6:00 = UTC 21:00 前日
+    - cron: '0 21 * * *' # JST 6:00 = UTC 21:00
   workflow_dispatch:
 
 jobs:
@@ -26,7 +26,10 @@ jobs:
 
       - name: Generate WordCloud
         run: |
-          python -u backend/generate_wordcloud.py
+          python -u backend/generate_wordcloud.py > log.txt 2>&1
+
+      - name: Show log output
+        run: cat log.txt || echo "⚠️ log.txt が存在しません"
 
       - name: Copy to docs/static
         run: |
